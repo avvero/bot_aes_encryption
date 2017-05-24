@@ -23,4 +23,4 @@ RUN ./gradlew build
 
 ENTRYPOINT ["./gradlew"]
 
-EXPOSE 8088
+EXPOSE 8090
