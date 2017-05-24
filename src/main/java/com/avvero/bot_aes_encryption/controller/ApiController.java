@@ -32,23 +32,18 @@ public class ApiController {
     public void endpoint(@RequestBody ConversationMessage message) {
         log.info("ENDPOINT START");
         log.info(message.toString());
+
+        ConversationMessage echo = new ConversationMessage();
+        echo.setChannelId(message.getChannelId());
+        echo.setConversation(message.getConversation());
+        echo.setFrom(message.getRecipient());
+        echo.setRecipient(message.getFrom());
+        echo.setServiceUrl(message.getServiceUrl());
+        echo.setType("message");
         if ("message".equals(message.getType())) {
-            ConversationMessage echo = new ConversationMessage();
-            echo.setChannelId(message.getChannelId());
-            echo.setConversation(message.getConversation());
-            echo.setFrom(message.getRecipient());
-            echo.setRecipient(message.getFrom());
-            echo.setType("message");
             echo.setText(aesEncryptionService.encrypt(key, schema, message.getText()));
             botFrameworkService.send(echo);
-
         } else if ("conversationUpdate".equals(message.getType())) {
-            ConversationMessage echo = new ConversationMessage();
-            echo.setChannelId(message.getChannelId());
-            echo.setConversation(message.getConversation());
-            echo.setFrom(message.getRecipient());
-            echo.setRecipient(message.getFrom());
-            echo.setType("message");
             echo.setText("<ss type=\"hi\">(wave)</ss>");
             botFrameworkService.send(echo);
         }
