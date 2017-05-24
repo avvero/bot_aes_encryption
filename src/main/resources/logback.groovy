@@ -38,9 +38,17 @@ appender("file", RollingFileAppender) {
     }
 }
 
-logger("org", ERROR, ["flow", "file"])
-logger("org.springframework", ERROR, ["flow", "file"])
-logger("org.springframework.web", INFO, ["flow", "file"])
-logger("org.springframework.web.filter", DEBUG, ["flow", "file"])
-logger("com.avvero", TRACE, ["flow", "file"])
-root(ERROR, ["flow", "file"])
+appender("stdout", ConsoleAppender) {
+    target = "System.out"
+    encoder(PatternLayoutEncoder) {
+        charset = java.nio.charset.StandardCharsets.UTF_8
+        pattern = "%d{yyyy-MM-dd HH:mm:ss} %5p \\(%mdc{userLogin},%mdc{sessionId}\\) %t %c{0}:%M:%L - %m%n"
+    }
+}
+
+logger("org", ERROR, ["flow", "file", "stdout"])
+logger("org.springframework", ERROR, ["flow", "file", "stdout"])
+logger("org.springframework.web", INFO, ["flow", "file", "stdout"])
+logger("org.springframework.web.filter", DEBUG, ["flow", "file", "stdout"])
+logger("com.avvero", TRACE, ["flow", "file", "stdout"])
+root(ERROR, ["flow", "file", "stdout"])
