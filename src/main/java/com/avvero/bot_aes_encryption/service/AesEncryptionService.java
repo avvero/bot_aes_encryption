@@ -1,5 +1,7 @@
 package com.avvero.bot_aes_encryption.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.BadPaddingException;
@@ -10,12 +12,18 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.Security;
 
 /**
  * Created by belyaev-ay on 24.05.17.
  */
+@Slf4j
 @Service
 public class AesEncryptionService {
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
 
     public String encrypt(String key, String schema, String value) {
         try {
@@ -23,7 +31,7 @@ public class AesEncryptionService {
             cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key.getBytes(), "AES"));
             return new String(cipher.doFinal(value.getBytes()));
         } catch (NoSuchAlgorithmException | NoSuchProviderException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage(), e);
             return e.getMessage();
         }
     }
