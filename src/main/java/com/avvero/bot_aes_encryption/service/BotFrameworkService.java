@@ -38,7 +38,7 @@ public class BotFrameworkService {
 
     public void send(String token, ConversationMessage message) {
         String url = String.format(env.getRequiredProperty("botframework.v3.conversations.activities.url"),
-                message.getChannelId(), message.getConversation().getId());
+                message.getServiceUrl(), message.getConversation().getId());
 
         RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

@@ -27,5 +27,6 @@ public class Message {
     private String conversation;
     private Account from;
     private Account recipient;
+    private String serviceUrl;
 
 }
