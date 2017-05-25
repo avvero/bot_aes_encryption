@@ -12,7 +12,7 @@ class UtilsTests extends Specification {
     @Unroll
     def "Extraction"() {
         expect:
-        Utils.extract(s) == r
+        Utils.extractTextOnly(s) == r
         where:
         s                                                                                                                          | r
         "<a href=\"mailto:ws_2017-05-25-02@belyaev.mx.dev.fxclub.org123456\">ws_2017-05-25-02@belyaev.mx.dev.fxclub.org123456</a>" | "ws_2017-05-25-02@belyaev.mx.dev.fxclub.org123456"
