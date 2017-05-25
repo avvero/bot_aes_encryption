@@ -47,4 +47,6 @@ dependencies {
     compile 'org.bouncycastle:bcprov-jdk16:1.45'
 
     runtime files('lib/flow-support-1.0.0.jar')
+
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
