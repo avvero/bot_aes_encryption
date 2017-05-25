@@ -18,6 +18,8 @@ RUN git clone https://github.com/avvero/bot_aes_encryption.git
 
 WORKDIR bot_aes_encryption
 
+RUN cp -a jce_policy/. /usr/lib/jvm/java-8-oracle/jre/lib/security/
+
 RUN chmod +x ./gradlew
 
 RUN ./gradlew build
