@@ -10,6 +10,7 @@ RUN apt-get update -y && \
     apt-get update -y
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 RUN apt-get install oracle-java8-installer -y
+RUN update-alternatives --config java
 
 WORKDIR /tmp
 
