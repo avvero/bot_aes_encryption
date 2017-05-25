@@ -3,6 +3,7 @@ package com.avvero.bot_aes_encryption.controller;
 import com.avvero.bot_aes_encryption.dto.bf.ConversationMessage;
 import com.avvero.bot_aes_encryption.service.AesEncryptionService;
 import com.avvero.bot_aes_encryption.service.BotFrameworkService;
+import com.avvero.bot_aes_encryption.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +42,7 @@ public class ApiController {
         echo.setServiceUrl(message.getServiceUrl());
         echo.setType("message");
         if ("message".equals(message.getType())) {
-            echo.setText(aesEncryptionService.encrypt(key, schema, message.getText()));
+            echo.setText(aesEncryptionService.encrypt(key, schema, Utils.extractTextOnly(message.getText())));
             botFrameworkService.send(echo);
         } else if ("conversationUpdate".equals(message.getType())) {
             echo.setText("<ss type=\"hi\">(wave)</ss>");
